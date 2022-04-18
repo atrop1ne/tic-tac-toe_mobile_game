@@ -21,7 +21,15 @@ public class GameFieldManager : MonoBehaviour
         );
     }
 
-    public void GenerateField()
+    public (float x, float y) GetFieldCellSize()
+    {
+        return (
+            fieldCellSprites[0].transform.localScale.x,
+            fieldCellSprites[0].transform.localScale.y
+        );
+    }   
+
+    private void GenerateField()
     {   
         if (!fieldAlredyGenerated)
         {
@@ -42,5 +50,10 @@ public class GameFieldManager : MonoBehaviour
 
             fieldAlredyGenerated = true;
         }
+    }
+
+    void Start()
+    {
+        GenerateField();
     }
 }
