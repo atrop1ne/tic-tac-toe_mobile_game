@@ -13,11 +13,14 @@ public class GameFieldManager : MonoBehaviour
 
     private bool fieldAlredyGenerated = false;
 
-    public (float x, float y) GetEdgeCellsCoords()
+    public (float top, float bottom, float right, float left) GetEdgeCellsCoords()
     {
+        var current_sprite = fieldCellSprites[0];
         return (
-            fieldWidth / 2 * fieldCellSprites[0].transform.localScale.x,
-            fieldHeight / 2 * fieldCellSprites[0].transform.localScale.y
+            fieldHeight / 2 * current_sprite.transform.localScale.y + current_sprite.transform.position.y,
+            - fieldHeight / 2 * current_sprite.transform.localScale.y + current_sprite.transform.position.y,
+            fieldWidth / 2 * current_sprite.transform.localScale.x + current_sprite.transform.position.x,
+            - fieldWidth / 2 * current_sprite.transform.localScale.x + current_sprite.transform.position.x
         );
     }
 
@@ -42,8 +45,8 @@ public class GameFieldManager : MonoBehaviour
                     var currentCell = Instantiate(
                         current_sprite, 
                         new Vector2(
-                            (x - FieldCenterCellIndexes.x) * current_sprite.transform.localScale.x,
-                            (y - FieldCenterCellIndexes.y) * current_sprite.transform.localScale.y),
+                            (x - FieldCenterCellIndexes.x) * current_sprite.transform.localScale.x + current_sprite.transform.position.x,
+                            (y - FieldCenterCellIndexes.y) * current_sprite.transform.localScale.y + current_sprite.transform.position.y),
                         Quaternion.identity);
                 }
             }
