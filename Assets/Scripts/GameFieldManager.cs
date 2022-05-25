@@ -11,7 +11,7 @@ public class GameFieldManager : MonoBehaviour
     [SerializeField]
     private int fieldHeight = 3;
 
-    private bool fieldAlredyGenerated = false;
+    public static GameFieldManager instance {get; private set;}
 
     public (float x, float y) GetEdgeCellsCoords()
     {
@@ -30,7 +30,7 @@ public class GameFieldManager : MonoBehaviour
 
     private void GenerateField()
     {   
-        if (!fieldAlredyGenerated)
+        if (!instance)
         {
             (int x, int y) FieldCenterCellIndexes = (fieldWidth / 2, fieldHeight / 2);
             for (int y = 0; y < fieldHeight; y++)
@@ -44,14 +44,21 @@ public class GameFieldManager : MonoBehaviour
                             (x - FieldCenterCellIndexes.x) * current_sprite.transform.localScale.x + current_sprite.transform.position.x,
                             (y - FieldCenterCellIndexes.y) * current_sprite.transform.localScale.y + current_sprite.transform.position.y),
                         Quaternion.identity);
+
+                    currentCell.name = $"Cell ({x}, {y})";
                 }
             }
 
-            fieldAlredyGenerated = true;
+            instance = this;
+        }
+
+        else
+        {
+            Destroy(gameObject);
         }
     }
 
-    void Start()
+    void Awake()
     {
         GenerateField();
     }

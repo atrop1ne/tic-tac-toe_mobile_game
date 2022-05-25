@@ -11,9 +11,6 @@ public class HeroController : MonoBehaviour
     private (float x, float y) edgeCellsCoordinates;
     private (float x, float y) currentCellCoord = (0, 0);
 
-    [SerializeField]
-    private GameFieldManager gfm;
-
     public void MoveHero(Vector2 direction)
     {
         (float x, float y) destinationCellCoord = (currentCellCoord.x + direction.x, currentCellCoord.y + direction.y);
@@ -37,7 +34,7 @@ public class HeroController : MonoBehaviour
     void Start()
     {
         SwipeDetection.SwipeEvent += OnSwipe;
-        fieldCellSize = gfm.GetFieldCellSize();
-        edgeCellsCoordinates = gfm.GetEdgeCellsCoords();
+        fieldCellSize = GameFieldManager.instance.GetFieldCellSize();
+        edgeCellsCoordinates = GameFieldManager.instance.GetEdgeCellsCoords();
     }
 }
