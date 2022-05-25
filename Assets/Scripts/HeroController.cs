@@ -8,19 +8,24 @@ public class HeroController : MonoBehaviour
     // private float moveSpeed = 0.01f;
     // private MoveState moveState = MoveState.Idle;
     private (float x, float y) fieldCellSize;
-    private (float top, float bottom, float right, float left) edgeCellsCoordinates;
+    private (float x, float y) edgeCellsCoordinates;
+    private (float x, float y) currentCellCoord = (0, 0);
 
     [SerializeField]
     private GameFieldManager gfm;
 
     public void MoveHero(Vector2 direction)
     {
-        var destinationPoint = new Vector2(transform.position.x + direction.x * fieldCellSize.x, transform.position.y + direction.y * fieldCellSize.y);
-        Debug.Log(destinationPoint);
-        if(destinationPoint.x <= edgeCellsCoordinates.right && destinationPoint.x >= edgeCellsCoordinates.left &&
-            destinationPoint.y <= edgeCellsCoordinates.top && destinationPoint.y >= edgeCellsCoordinates.bottom)
+        (float x, float y) destinationCellCoord = (currentCellCoord.x + direction.x, currentCellCoord.y + direction.y);
+        
+        if(Mathf.Abs(destinationCellCoord.x) <= Mathf.Abs(1) 
+            && Mathf.Abs(destinationCellCoord.y) <= Mathf.Abs(1))
             {
+                var destinationPoint = new Vector2(transform.position.x + direction.x * fieldCellSize.x, 
+                                                    transform.position.y + direction.y * fieldCellSize.y);
+
                 transform.position = destinationPoint;
+                currentCellCoord = destinationCellCoord;
             }
     }
 

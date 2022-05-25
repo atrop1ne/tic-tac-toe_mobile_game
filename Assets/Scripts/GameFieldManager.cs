@@ -13,14 +13,10 @@ public class GameFieldManager : MonoBehaviour
 
     private bool fieldAlredyGenerated = false;
 
-    public (float top, float bottom, float right, float left) GetEdgeCellsCoords()
+    public (float x, float y) GetEdgeCellsCoords()
     {
-        var current_sprite = fieldCellSprites[0];
         return (
-            fieldHeight / 2 * current_sprite.transform.localScale.y + current_sprite.transform.position.y,
-            - fieldHeight / 2 * current_sprite.transform.localScale.y + current_sprite.transform.position.y,
-            fieldWidth / 2 * current_sprite.transform.localScale.x + current_sprite.transform.position.x,
-            - fieldWidth / 2 * current_sprite.transform.localScale.x + current_sprite.transform.position.x
+            fieldWidth / 2, fieldHeight / 2
         );
     }
 
