@@ -15,8 +15,8 @@ public class HeroController : MonoBehaviour
     {
         (float x, float y) destinationCellCoord = (currentCellCoord.x + direction.x, currentCellCoord.y + direction.y);
         
-        if(Mathf.Abs(destinationCellCoord.x) <= Mathf.Abs(1) 
-            && Mathf.Abs(destinationCellCoord.y) <= Mathf.Abs(1))
+        if(Mathf.Abs(destinationCellCoord.x) <= Mathf.Abs(edgeCellsCoordinates.x) 
+            && Mathf.Abs(destinationCellCoord.y) <= Mathf.Abs(edgeCellsCoordinates.y))
             {
                 var destinationPoint = new Vector2(transform.position.x + direction.x * fieldCellSize.x, 
                                                     transform.position.y + direction.y * fieldCellSize.y);
