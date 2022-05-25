@@ -4,6 +4,9 @@ using UnityEngine;
 
 public class HeroController : MonoBehaviour
 {
+    public delegate void OnHeroAttackInput();
+    public static event OnHeroAttackInput HeroAttackEvent;
+
     // [SerializeField]
     // private float moveSpeed = 0.01f;
     // private MoveState moveState = MoveState.Idle;
@@ -26,8 +29,17 @@ public class HeroController : MonoBehaviour
             }
     }
 
+    private void HeroAttack(Vector2 direction)
+    {
+        if(currentCellCoord.y + direction.y > edgeCellsCoordinates.y
+            && currentCellCoord.x == 0){
+                HeroAttackEvent();
+            }
+    }
+
     private void OnSwipe(Vector2 direction)
     {
+        HeroAttack(direction);
         MoveHero(direction);
     }
 
