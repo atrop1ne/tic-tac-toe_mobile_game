@@ -1,4 +1,5 @@
 using System.Collections;
+using System.Linq;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -18,8 +19,8 @@ public class HeroController : MonoBehaviour
     {
         (float x, float y) destinationCellCoord = (currentCellCoord.x + direction.x, currentCellCoord.y + direction.y);
         
-        if(Mathf.Abs(destinationCellCoord.x) <= Mathf.Abs(edgeCellsCoordinates.x) 
-            && Mathf.Abs(destinationCellCoord.y) <= Mathf.Abs(edgeCellsCoordinates.y))
+        if(Mathf.Abs(destinationCellCoord.x) <= Mathf.Abs(1) 
+            && Mathf.Abs(destinationCellCoord.y) <= Mathf.Abs(1))
             {
                 var destinationPoint = new Vector2(transform.position.x + direction.x * fieldCellSize.x, 
                                                     transform.position.y + direction.y * fieldCellSize.y);
@@ -43,9 +44,19 @@ public class HeroController : MonoBehaviour
         MoveHero(direction);
     }
 
+    private void OnEnemyAttack(List<CellCoordinates> cellsCoordinates)
+    {
+        if(cellsCoordinates.Any(c => (float)c.x == currentCellCoord.x 
+                                    && (float)c.y == currentCellCoord.y))
+        {
+            Debug.Log("Enemy attack hit");
+        };
+    }
+
     void Start()
     {
         SwipeDetection.SwipeEvent += OnSwipe;
+        EnemyController.EnemyAttackEvent += OnEnemyAttack;
         fieldCellSize = GameFieldManager.instance.GetFieldCellSize();
         edgeCellsCoordinates = GameFieldManager.instance.GetEdgeCellsCoords();
     }

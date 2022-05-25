@@ -45,7 +45,7 @@ public class GameFieldManager : MonoBehaviour
                             (y - FieldCenterCellIndexes.y) * current_sprite.transform.localScale.y + current_sprite.transform.position.y),
                         Quaternion.identity);
 
-                    currentCell.name = $"Cell ({x}, {y})";
+                    currentCell.name = $"Cell ({x - FieldCenterCellIndexes.x}, {y - FieldCenterCellIndexes.y})";
                 }
             }
 

@@ -297,6 +297,21 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   healthPoints: 5
+  patterns:
+  - cellsCoordinates:
+    - x: -1
+      y: 1
+    - x: 0
+      y: 1
+    - x: 1
+      y: 1
+  - cellsCoordinates:
+    - x: 0
+      y: 1
+    - x: 0
+      y: 0
+    - x: 0
+      y: -1
 --- !u!1 &765038552
 GameObject:
   m_ObjectHideFlags: 0
