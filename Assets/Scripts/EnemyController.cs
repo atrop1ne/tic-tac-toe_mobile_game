@@ -4,14 +4,17 @@ using UnityEngine;
 
 public class EnemyController : MonoBehaviour
 {
-    public delegate void OnEnemyAttack(List<CellCoordinates> cellsCoordinates);
-    public static event OnEnemyAttack EnemyAttackEvent;
+    public delegate void EnemyDelegate(List<CellCoordinates> cellsCoordinates);
+    public static event EnemyDelegate EnemyAlertEvent;
+    public static event EnemyDelegate EnemyAttackEvent;
 
     [SerializeField]
     private int healthPoints = 5;
-    private bool isAtacking = false;
-    private float attackDelay = 0.5f;
-    private float timer = 0;
+    [SerializeField]
+    private float attackDelay = 0f;
+    private bool isAlertGoing = false;
+    private float timer = 5f;
+    private AttackPattern currentPattern;
 
     [SerializeField]
     public List<AttackPattern> patterns;
@@ -21,21 +24,28 @@ public class EnemyController : MonoBehaviour
         healthPoints--;
     }
     
-    void Start()
+    private void OnAlertDone(List<CellCoordinates> cellsCoordinates)
+    {
+        isAlertGoing = false;
+        Debug.Log($"AlertDone {cellsCoordinates.Count}");
+        EnemyAttackEvent(cellsCoordinates);
+        timer = 0;
+    }
+
+    void Awake()
     {
         HeroController.HeroAttackEvent += EnemyGetDamage;
+        AttackAlert.AlertIsDoneEvent += OnAlertDone;
     }
 
     void Update()
     {
         timer += Time.deltaTime;
-        if(!isAtacking && timer >= attackDelay)
+        if(!isAlertGoing && timer >= attackDelay)
         {
-            isAtacking = true;
-            var pattern = patterns[Random.Range(0, patterns.Count)];
-            EnemyAttackEvent(pattern.cellsCoordinates);
-            isAtacking = false;
-            timer = 0;
+            isAlertGoing = true;
+            currentPattern = patterns[Random.Range(0, patterns.Count)];
+            EnemyAlertEvent(currentPattern.cellsCoordinates);
         }
     }
 }
