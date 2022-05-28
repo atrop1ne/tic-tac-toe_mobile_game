@@ -32,16 +32,21 @@ public class HeroController : MonoBehaviour
 
     private void HeroAttack(Vector2 direction)
     {
-        if(currentCellCoord.y + direction.y > edgeCellsCoordinates.y
-            && currentCellCoord.x == 0){
-                HeroAttackEvent();
-            }
+        HeroAttackEvent();
     }
 
     private void OnSwipe(Vector2 direction)
     {
-        HeroAttack(direction);
-        MoveHero(direction);
+        if(currentCellCoord.y + direction.y > edgeCellsCoordinates.y
+            && currentCellCoord.x == 0)
+        {
+                HeroAttack(direction);
+        }
+        
+        else
+        {
+            MoveHero(direction);
+        }
     }
 
     private void OnEnemyAttack()
