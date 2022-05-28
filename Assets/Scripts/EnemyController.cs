@@ -15,16 +15,11 @@ public class EnemyController : MonoBehaviour
     private bool alertIsGoing = false;
     private bool alertIsDone = false;
     private float timer = 0;
-    private AttackPattern currentPattern = new AttackPattern();
+    public AttackPattern currentPattern;
     public static EnemyController instance {get; private set;}
 
     [SerializeField]
-    public List<AttackPattern> patterns;
-
-    public AttackPattern GetCurrentAttackPattern()
-    {
-        return currentPattern;
-    }
+    private List<AttackPattern> patterns;
 
     private void EnemyGetDamage()
     {
@@ -38,6 +33,18 @@ public class EnemyController : MonoBehaviour
 
     void Awake()
     {
+        currentPattern = patterns[Random.Range(0, patterns.Count)];
+
+        if(!instance)
+        {
+            instance = gameObject.GetComponent<EnemyController>();
+        }
+
+        else
+        {
+            Destroy(gameObject);
+        }
+
         HeroController.HeroAttackEvent += EnemyGetDamage;
         AttackAlert.AlertIsDoneEvent += OnAlertIsDone;
     }
@@ -51,7 +58,7 @@ public class EnemyController : MonoBehaviour
             currentPattern = patterns[Random.Range(0, patterns.Count)];
             EnemyAlertEvent();
         }
-
+        
         if(alertIsDone)
         {
             EnemyAttackEvent();

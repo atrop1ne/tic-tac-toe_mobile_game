@@ -17,7 +17,7 @@ public class AttackAlert : MonoBehaviour
     private float scaleSpeed = 1f;
     private void OnEnemyAlert()
     {
-        var pattern = EnemyController.instance.GetCurrentAttackPattern();
+        var pattern = EnemyController.instance.currentPattern;
         foreach (var cellCoordinates in pattern.cellsCoordinates)
         {
             var currentAlert = Instantiate(

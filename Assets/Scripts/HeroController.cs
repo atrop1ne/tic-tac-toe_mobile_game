@@ -19,8 +19,8 @@ public class HeroController : MonoBehaviour
     {
         (float x, float y) destinationCellCoord = (currentCellCoord.x + direction.x, currentCellCoord.y + direction.y);
         
-        if(Mathf.Abs(destinationCellCoord.x) <= Mathf.Abs(1) 
-            && Mathf.Abs(destinationCellCoord.y) <= Mathf.Abs(1))
+        if(Mathf.Abs(destinationCellCoord.x) <= Mathf.Abs(edgeCellsCoordinates.x) 
+            && Mathf.Abs(destinationCellCoord.y) <= Mathf.Abs(edgeCellsCoordinates.y))
             {
                 var destinationPoint = new Vector2(transform.position.x + direction.x * fieldCellSize.x, 
                                                     transform.position.y + direction.y * fieldCellSize.y);
@@ -51,8 +51,7 @@ public class HeroController : MonoBehaviour
 
     private void OnEnemyAttack()
     {
-        var pattern = EnemyController.instance.GetCurrentAttackPattern();
-        if(pattern.cellsCoordinates.Any(c => (float)c.x == currentCellCoord.x 
+        if(EnemyController.instance.currentPattern.cellsCoordinates.Any(c => (float)c.x == currentCellCoord.x 
                                     && (float)c.y == currentCellCoord.y))
         {
             Debug.Log("Enemy attack hit");
