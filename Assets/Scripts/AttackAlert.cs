@@ -12,9 +12,9 @@ public class AttackAlert : MonoBehaviour
     private float destinationScale = 1.3f;
     private (float x, float y) cellSize;
     private (float x, float y) fieldCenter;
-    
+
     [SerializeField]
-    private float scaleSpeed = 1f;
+    private float scaleSpeed = 4;
     private void OnEnemyAlert()
     {
         var pattern = EnemyController.instance.currentPattern;
@@ -43,9 +43,9 @@ public class AttackAlert : MonoBehaviour
     {
         if(!alertIsDone)
         {
-            if(currentScale < destinationScale)
+            if (currentScale < destinationScale)
             {
-                currentScale += scaleSpeed * Time.deltaTime;
+                currentScale += Time.deltaTime / scaleSpeed;
                 foreach (var ca in currentAlerts)
                 {
                     ca.transform.localScale = new Vector2(currentScale, currentScale);

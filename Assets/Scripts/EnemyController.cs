@@ -11,7 +11,7 @@ public class EnemyController : MonoBehaviour
     [SerializeField]
     private int healthPoints = 5;
     [SerializeField]
-    private float attackDelay = 10f;
+    private float attackDelay = 2;
     private bool alertIsGoing = false;
     private bool alertIsDone = false;
     private float timer = 0;
@@ -39,7 +39,6 @@ public class EnemyController : MonoBehaviour
         {
             instance = gameObject.GetComponent<EnemyController>();
         }
-
         else
         {
             Destroy(gameObject);
