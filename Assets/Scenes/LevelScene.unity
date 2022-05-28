@@ -306,6 +306,7 @@ MonoBehaviour:
       y: 1
     - x: 1
       y: 1
+    Sprite: {fileID: 3569508910200815700, guid: 8dab9174aa0e717429621e63eec7c75f, type: 3}
   - cellsCoordinates:
     - x: 0
       y: 1
@@ -313,6 +314,7 @@ MonoBehaviour:
       y: 0
     - x: 0
       y: -1
+    Sprite: {fileID: 3569508910200815700, guid: 8dab9174aa0e717429621e63eec7c75f, type: 3}
 --- !u!1 &678130162
 GameObject:
   m_ObjectHideFlags: 0
@@ -342,7 +344,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 497c612cc2cf78e428856cc8f8381f56, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  attackAlertSprite: {fileID: 3569508910200815700, guid: 8dab9174aa0e717429621e63eec7c75f, type: 3}
+  scaleSpeed: 10
 --- !u!4 &678130164
 Transform:
   m_ObjectHideFlags: 0
@@ -382,7 +384,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 765038552}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: -1.6, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}

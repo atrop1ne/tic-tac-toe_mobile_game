@@ -10,6 +10,7 @@ public class GameFieldManager : MonoBehaviour
     private int fieldWidth = 3;
     [SerializeField]
     private int fieldHeight = 3;
+    public (float x, float y) fieldCenterPosition;
 
     public static GameFieldManager instance {get; private set;}
 
@@ -26,7 +27,7 @@ public class GameFieldManager : MonoBehaviour
             fieldCellSprites[0].transform.localScale.x,
             fieldCellSprites[0].transform.localScale.y
         );
-    }   
+    }
 
     private void GenerateField()
     {   
@@ -41,8 +42,8 @@ public class GameFieldManager : MonoBehaviour
                     var currentCell = Instantiate(
                         current_sprite, 
                         new Vector2(
-                            (x - FieldCenterCellIndexes.x) * current_sprite.transform.localScale.x + current_sprite.transform.position.x,
-                            (y - FieldCenterCellIndexes.y) * current_sprite.transform.localScale.y + current_sprite.transform.position.y),
+                            (x - FieldCenterCellIndexes.x) * current_sprite.transform.localScale.x + fieldCenterPosition.x,
+                            (y - FieldCenterCellIndexes.y) * current_sprite.transform.localScale.y + fieldCenterPosition.y),
                         Quaternion.identity);
 
                     currentCell.name = $"Cell ({x - FieldCenterCellIndexes.x}, {y - FieldCenterCellIndexes.y})";
@@ -60,6 +61,7 @@ public class GameFieldManager : MonoBehaviour
 
     void Awake()
     {
+        fieldCenterPosition = (transform.position.x, transform.position.y);
         GenerateField();
     }
 }

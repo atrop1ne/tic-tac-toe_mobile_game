@@ -4,31 +4,27 @@ using UnityEngine;
 
 public class AttackAlert : MonoBehaviour
 {
-    public delegate void AttackAlertDelegate(List<CellCoordinates> cellsCoordinates);
+    public delegate void AttackAlertDelegate();
     public static event AttackAlertDelegate AlertIsDoneEvent;
-
-    [SerializeField]
-    private GameObject attackAlertSprite;
-
     private bool alertIsDone = false;
     private List<GameObject> currentAlerts = new List<GameObject>();
-    private List<CellCoordinates> currentCells;
     private float currentScale = 0.5f;
     private float destinationScale = 1.3f;
     private (float x, float y) cellSize;
+    private (float x, float y) fieldCenter;
     
     [SerializeField]
-    private float scaleSpeed = 10.0f;
-    private void FieldOnEnemyAttack(List<CellCoordinates> cellsCoordinates)
+    private float scaleSpeed = 1f;
+    private void OnEnemyAlert()
     {
-        currentCells = cellsCoordinates;
-        foreach (var cellCoordinates in cellsCoordinates)
+        var pattern = EnemyController.instance.GetCurrentAttackPattern();
+        foreach (var cellCoordinates in pattern.cellsCoordinates)
         {
             var currentAlert = Instantiate(
-                attackAlertSprite,
+                pattern.Sprite,
                 new Vector2(
-                    cellCoordinates.x * cellSize.x + attackAlertSprite.transform.position.x,
-                    cellCoordinates.y * cellSize.y + attackAlertSprite.transform.position.y),
+                    cellCoordinates.x * cellSize.x + fieldCenter.x,
+                    cellCoordinates.y * cellSize.y + fieldCenter.y),
                 Quaternion.identity);
 
             currentAlerts.Add(currentAlert);
@@ -37,11 +33,10 @@ public class AttackAlert : MonoBehaviour
 
     void Start()
     {
-        currentCells = new List<CellCoordinates>();
-        attackAlertSprite.transform.localScale = new Vector2(1, 1);
-        EnemyController.EnemyAlertEvent += FieldOnEnemyAttack;
+        EnemyController.EnemyAlertEvent += OnEnemyAlert;
 
         cellSize = GameFieldManager.instance.GetFieldCellSize();
+        fieldCenter = GameFieldManager.instance.fieldCenterPosition;
     }
 
     void Update()
@@ -62,19 +57,22 @@ public class AttackAlert : MonoBehaviour
                 foreach (var ca in currentAlerts)
                 {
                     ca.transform.localScale = new Vector2(destinationScale, destinationScale);
-                    Destroy(ca);
                 }
 
                 alertIsDone = true;
-                currentAlerts.Clear();
             }
         }
 
         else
         {
-            AlertIsDoneEvent(currentCells);
+            foreach (var ca in currentAlerts)
+            {
+                Destroy(ca);
+            }
+            currentAlerts.Clear();
+            AlertIsDoneEvent();
             alertIsDone = false;
-            currentScale = 1;
+            currentScale = 0.5f;
         }
     }
 }

@@ -44,9 +44,10 @@ public class HeroController : MonoBehaviour
         MoveHero(direction);
     }
 
-    private void OnEnemyAttack(List<CellCoordinates> cellsCoordinates)
+    private void OnEnemyAttack()
     {
-        if(cellsCoordinates.Any(c => (float)c.x == currentCellCoord.x 
+        var pattern = EnemyController.instance.GetCurrentAttackPattern();
+        if(pattern.cellsCoordinates.Any(c => (float)c.x == currentCellCoord.x 
                                     && (float)c.y == currentCellCoord.y))
         {
             Debug.Log("Enemy attack hit");
