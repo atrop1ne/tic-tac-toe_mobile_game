@@ -1,4 +1,3 @@
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -11,7 +10,7 @@ public class EnemyController : MonoBehaviour
     [SerializeField]
     private int healthPoints = 5;
     [SerializeField]
-    private float attackDelay = 2;
+    private float attackDelay = 0.5f;
     private bool alertIsGoing = false;
     private bool alertIsDone = false;
     private float timer = 0;

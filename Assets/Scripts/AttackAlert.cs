@@ -1,4 +1,3 @@
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -14,7 +13,7 @@ public class AttackAlert : MonoBehaviour
     private (float x, float y) fieldCenter;
 
     [SerializeField]
-    private float scaleSpeed = 4;
+    private float scaleSpeed = 2;
     private void OnEnemyAlert()
     {
         var pattern = EnemyController.instance.currentPattern;
@@ -46,17 +45,17 @@ public class AttackAlert : MonoBehaviour
             if (currentScale < destinationScale)
             {
                 currentScale += Time.deltaTime / scaleSpeed;
-                foreach (var ca in currentAlerts)
+                foreach (var currentAlert in currentAlerts)
                 {
-                    ca.transform.localScale = new Vector2(currentScale, currentScale);
+                    currentAlert.transform.localScale = new Vector2(currentScale, currentScale);
                 }
             }
 
             else
             {
-                foreach (var ca in currentAlerts)
+                foreach (var currentAlert in currentAlerts)
                 {
-                    ca.transform.localScale = new Vector2(destinationScale, destinationScale);
+                    currentAlert.transform.localScale = new Vector2(destinationScale, destinationScale);
                 }
 
                 alertIsDone = true;
@@ -65,9 +64,9 @@ public class AttackAlert : MonoBehaviour
 
         else
         {
-            foreach (var ca in currentAlerts)
+            foreach (var currentAlert in currentAlerts)
             {
-                Destroy(ca);
+                Destroy(currentAlert);
             }
             currentAlerts.Clear();
             AlertIsDoneEvent();
