@@ -12,6 +12,11 @@ public class HeroController : MonoBehaviour
     private (float x, float y) fieldCellSize;
     private (float x, float y) edgeCellsCoordinates;
     private (float x, float y) currentCellCoord = (0, 0);
+    [SerializeField]
+    private GameObject attackEffect;
+    private GameObject currentAttack;
+    private bool attackIsGoing = false;
+    private float attackTimer = 0;
 
     public void MoveHero(Vector2 direction)
     {
@@ -31,6 +36,14 @@ public class HeroController : MonoBehaviour
     private void HeroAttack(Vector2 direction)
     {
         HeroAttackEvent();
+        attackIsGoing = true;
+        currentAttack = Instantiate(
+            attackEffect,
+            new Vector2(
+                gameObject.transform.position.x,
+                gameObject.transform.position.y + 1.5f), 
+            Quaternion.identity
+        );
     }
 
     private void OnSwipe(Vector2 direction)
@@ -62,5 +75,19 @@ public class HeroController : MonoBehaviour
         EnemyController.EnemyAttackEvent += OnEnemyAttack;
         fieldCellSize = GameFieldManager.instance.GetFieldCellSize();
         edgeCellsCoordinates = GameFieldManager.instance.GetEdgeCellsCoords();
+    }
+
+    void Update()
+    {
+        if(attackIsGoing)
+        {
+            attackTimer += Time.deltaTime;
+            if(attackTimer >= 0.2f)
+            {
+                Destroy(currentAttack);
+                attackIsGoing = false;
+                attackTimer = 0;
+            }
+        }
     }
 }

@@ -131,8 +131,16 @@ PrefabInstance:
     m_TransformParent: {fileID: 0}
     m_Modifications:
     - target: {fileID: 1979262750088629040, guid: a55ad2054c5eb2c4f968c5f5c71528a0, type: 3}
+      propertyPath: m_SortingLayer
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1979262750088629040, guid: a55ad2054c5eb2c4f968c5f5c71528a0, type: 3}
       propertyPath: m_SortingOrder
       value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 1979262750088629040, guid: a55ad2054c5eb2c4f968c5f5c71528a0, type: 3}
+      propertyPath: m_SortingLayerID
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1979262750088629041, guid: a55ad2054c5eb2c4f968c5f5c71528a0, type: 3}
       propertyPath: m_Name
@@ -142,6 +150,10 @@ PrefabInstance:
       propertyPath: gfm
       value: 
       objectReference: {fileID: 765038554}
+    - target: {fileID: 1979262750088629054, guid: a55ad2054c5eb2c4f968c5f5c71528a0, type: 3}
+      propertyPath: attackEffect
+      value: 
+      objectReference: {fileID: 5610443392191534442, guid: cff8fcf5fbb70a24e83b75a720208aba, type: 3}
     - target: {fileID: 1979262750088629055, guid: a55ad2054c5eb2c4f968c5f5c71528a0, type: 3}
       propertyPath: m_RootOrder
       value: 1

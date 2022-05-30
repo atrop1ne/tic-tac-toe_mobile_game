@@ -39,11 +39,11 @@ TagManager:
   - 
   - 
   m_SortingLayers:
-  - name: Default
-    uniqueID: 0
-    locked: 0
   - name: FieldCells
     uniqueID: 4089555753
+    locked: 0
+  - name: Default
+    uniqueID: 0
     locked: 0
   - name: Hero
     uniqueID: 752659441
