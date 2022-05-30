@@ -7,6 +7,8 @@ public class EnemyController : MonoBehaviour
     public static event EnemyDelegate EnemyAlertEvent;
     public static event EnemyDelegate EnemyAttackEvent;
 
+    private Animator animator;
+
     [SerializeField]
     private int healthPoints = 5;
     [SerializeField]
@@ -33,6 +35,7 @@ public class EnemyController : MonoBehaviour
     void Awake()
     {
         currentPattern = patterns[Random.Range(0, patterns.Count)];
+        animator = gameObject.GetComponent<Animator>();
 
         if(!instance)
         {
@@ -47,7 +50,7 @@ public class EnemyController : MonoBehaviour
         AttackAlert.AlertIsDoneEvent += OnAlertIsDone;
     }
 
-    void Update()
+    void FixedUpdate()
     {
         timer += Time.deltaTime;
         if(!alertIsGoing && timer >= attackDelay)
@@ -55,6 +58,7 @@ public class EnemyController : MonoBehaviour
             alertIsGoing = true;
             currentPattern = patterns[Random.Range(0, patterns.Count)];
             EnemyAlertEvent();
+            animator.Play(currentPattern.Animation.name);
         }
         
         if(alertIsDone)
