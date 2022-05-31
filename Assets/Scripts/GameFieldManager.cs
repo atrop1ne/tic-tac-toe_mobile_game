@@ -58,10 +58,13 @@ public class GameFieldManager : MonoBehaviour
             Destroy(gameObject);
         }
     }
-
-    void Awake()
+    private void Awake()
     {
         fieldCenterPosition = (transform.position.x, transform.position.y);
+    }
+
+    void OnLevelWasLoaded()
+    {
         GenerateField();
     }
 }

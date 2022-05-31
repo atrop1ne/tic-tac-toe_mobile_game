@@ -31,7 +31,7 @@ public class AttackAlert : MonoBehaviour
         }
     }
 
-    void Start()
+    void OnLevelWasLoaded()
     {
         EnemyController.EnemyAlertEvent += OnEnemyAlert;
 

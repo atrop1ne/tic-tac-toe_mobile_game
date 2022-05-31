@@ -32,7 +32,7 @@ public class LevelLoading : MonoBehaviour
             if (GUI.Button(new Rect((float)(Screen.width / 2) + 200f, (float)(Screen.height / 2) + 100f, 200f, 50f), "Начать игру"))
             {
                 ChangeScene.onGame = 2;
-                SceneManager.LoadScene("Level");
+                SceneManager.LoadScene("LoadedLevel");
                 LoadLevel();               
             }
         }

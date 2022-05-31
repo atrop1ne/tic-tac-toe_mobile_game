@@ -58,7 +58,7 @@ public class HeroController : MonoBehaviour
         };
     }
 
-    void Start()
+    void OnLevelWasLoaded()
     {
         SwipeDetection.SwipeEvent += OnSwipe;
         EnemyController.EnemyAttackEvent += OnEnemyAttack;
