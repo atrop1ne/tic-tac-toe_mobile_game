@@ -17,6 +17,8 @@ public class EnemyController : MonoBehaviour
     private bool alertIsDone = false;
     private float timer = 0;
     public AttackPattern currentPattern;
+    [HideInInspector]
+    public bool enemyDeath;
     public static EnemyController instance {get; private set;}
 
     [SerializeField]
@@ -67,6 +69,10 @@ public class EnemyController : MonoBehaviour
             alertIsGoing = false;
             alertIsDone = false;
             timer = 0;
+        }
+        if (healthPoints == 0)
+        {
+            enemyDeath = true;
         }
     }
 }

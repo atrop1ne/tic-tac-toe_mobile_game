@@ -8,6 +8,8 @@ public class LevelLoading : MonoBehaviour
     private float timer;
     private bool uiReady;
     static public GameObject thisLevel;
+    [SerializeField]
+    private Texture play;
 
     void Update()
     {
@@ -29,10 +31,10 @@ public class LevelLoading : MonoBehaviour
     {
         if (uiReady == true)
         {
-            if (GUI.Button(new Rect((float)(Screen.width / 2) + 200f, (float)(Screen.height / 2) + 100f, 200f, 50f), "Начать игру"))
+            if (GUI.Button(new Rect((float)(Screen.width / 2) - 70f, (float)(Screen.height / 2) + 500f, 200f, 200f), play))
             {
                 ChangeScene.onGame = 2;
-                SceneManager.LoadScene("Level");
+                SceneManager.LoadScene("LoadedLevel");
                 LoadLevel();               
             }
         }

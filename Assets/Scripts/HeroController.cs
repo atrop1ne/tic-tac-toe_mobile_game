@@ -5,6 +5,7 @@ public class HeroController : MonoBehaviour
 {
     public delegate void OnHeroAttackInput();
     public static event OnHeroAttackInput HeroAttackEvent;
+    public static HeroController instance { get; private set; }
 
     // [SerializeField]
     // private float moveSpeed = 0.01f;
@@ -17,6 +18,10 @@ public class HeroController : MonoBehaviour
     private GameObject currentAttack;
     private bool attackIsGoing = false;
     private float attackTimer = 0;
+    [SerializeField]
+    private int healthPoints = 5;
+    [HideInInspector]
+    public bool heroDeath;
 
     public void MoveHero(Vector2 direction)
     {
@@ -65,10 +70,21 @@ public class HeroController : MonoBehaviour
         if(EnemyController.instance.currentPattern.cellsCoordinates.Any(c => (float)c.x == currentCellCoord.x 
                                     && (float)c.y == currentCellCoord.y))
         {
-            Debug.Log("Enemy attack hit");
+            healthPoints--;
         };
     }
 
+    private void Awake()
+    {
+        if (!instance)
+        {
+            instance = gameObject.GetComponent<HeroController>();
+        }
+        else
+        {
+            Destroy(gameObject);
+        }
+    }
     void Start()
     {
         SwipeDetection.SwipeEvent += OnSwipe;
@@ -89,5 +105,7 @@ public class HeroController : MonoBehaviour
                 attackTimer = 0;
             }
         }
+        if (healthPoints == 0)
+            heroDeath = true;
     }
 }
