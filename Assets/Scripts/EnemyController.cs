@@ -13,6 +13,8 @@ public class EnemyController : MonoBehaviour
     private int healthPoints = 5;
     [SerializeField]
     private float attackDelay = 0.5f;
+    [SerializeField]
+    private EnemyHealthBar healthBar;
     private bool alertIsGoing = false;
     private bool alertIsDone = false;
     private float timer = 0;
@@ -25,6 +27,7 @@ public class EnemyController : MonoBehaviour
     private void EnemyGetDamage()
     {
         healthPoints--;
+        healthBar.SetSliderValue(healthPoints);
     }
     
     private void OnAlertIsDone()
@@ -36,6 +39,7 @@ public class EnemyController : MonoBehaviour
     {
         currentPattern = patterns[Random.Range(0, patterns.Count)];
         animator = gameObject.GetComponent<Animator>();
+        healthBar.InitalizeSlider(healthPoints);
 
         if(!instance)
         {
