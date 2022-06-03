@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class EnemyController : MonoBehaviour
 {
@@ -9,6 +10,8 @@ public class EnemyController : MonoBehaviour
 
     private Animator animator;
 
+    [SerializeField]
+    private Text enemyNameTextField;
     [SerializeField]
     private int healthPoints = 5;
     [SerializeField]
@@ -40,6 +43,8 @@ public class EnemyController : MonoBehaviour
         currentPattern = patterns[Random.Range(0, patterns.Count)];
         animator = gameObject.GetComponent<Animator>();
         healthBar.InitalizeSlider(healthPoints);
+        enemyNameTextField = healthBar.GetComponentInChildren<Text>();
+        enemyNameTextField.text = gameObject.name;
 
         if(!instance)
         {
