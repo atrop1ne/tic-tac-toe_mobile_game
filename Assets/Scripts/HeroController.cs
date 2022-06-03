@@ -22,6 +22,9 @@ public class HeroController : MonoBehaviour
     {
         (float x, float y) destinationCellCoord = (currentCellCoord.x + direction.x, currentCellCoord.y + direction.y);
         
+        if(LevelManager.instance.isLevelPaused == true)
+            return;
+
         if(Mathf.Abs(destinationCellCoord.x) <= Mathf.Abs(edgeCellsCoordinates.x) 
             && Mathf.Abs(destinationCellCoord.y) <= Mathf.Abs(edgeCellsCoordinates.y))
             {
@@ -51,7 +54,7 @@ public class HeroController : MonoBehaviour
         if(currentCellCoord.y + direction.y > edgeCellsCoordinates.y
             && currentCellCoord.x == 0)
         {
-                HeroAttack(direction);
+            HeroAttack(direction);
         }
         
         else
@@ -65,7 +68,7 @@ public class HeroController : MonoBehaviour
         if(EnemyController.instance.currentPattern.cellsCoordinates.Any(c => (float)c.x == currentCellCoord.x 
                                     && (float)c.y == currentCellCoord.y))
         {
-            Debug.Log("Enemy attack hit");
+            LevelManager.instance.EndLevel();
         };
     }
 
@@ -75,6 +78,12 @@ public class HeroController : MonoBehaviour
         EnemyController.EnemyAttackEvent += OnEnemyAttack;
         fieldCellSize = GameFieldManager.instance.GetFieldCellSize();
         edgeCellsCoordinates = GameFieldManager.instance.GetEdgeCellsCoords();
+    }
+
+    void OnDestroy()
+    {
+        SwipeDetection.SwipeEvent -= OnSwipe;
+        EnemyController.EnemyAttackEvent -= OnEnemyAttack;
     }
 
     void Update()

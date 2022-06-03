@@ -42,25 +42,38 @@ public class EnemyController : MonoBehaviour
     {
         currentPattern = patterns[Random.Range(0, patterns.Count)];
         animator = gameObject.GetComponent<Animator>();
-        healthBar.InitalizeSlider(healthPoints);
-        enemyNameTextField = healthBar.GetComponentInChildren<Text>();
-        enemyNameTextField.text = gameObject.name;
 
         if(!instance)
         {
-            instance = gameObject.GetComponent<EnemyController>();
-        }
-        else
-        {
-            Destroy(gameObject);
+            instance = this;
         }
 
         HeroController.HeroAttackEvent += EnemyGetDamage;
         AttackAlert.AlertIsDoneEvent += OnAlertIsDone;
+
+        Debug.Log(currentPattern);
+    }
+
+    void Start()
+    {
+        healthBar.InitalizeSlider(healthPoints);
+        enemyNameTextField = healthBar.GetComponentInChildren<Text>();
+        enemyNameTextField.text = gameObject.name;
+    }
+
+    void OnDestroy()
+    {
+        HeroController.HeroAttackEvent -= EnemyGetDamage;
+        AttackAlert.AlertIsDoneEvent -= OnAlertIsDone;
     }
 
     void FixedUpdate()
     {
+        if(healthPoints <= 0)
+        {
+            LevelManager.instance.CompleteLevel();
+        }
+
         timer += Time.deltaTime;
         if(!alertIsGoing && timer >= attackDelay)
         {

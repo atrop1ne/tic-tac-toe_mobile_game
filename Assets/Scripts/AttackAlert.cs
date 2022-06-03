@@ -38,6 +38,11 @@ public class AttackAlert : MonoBehaviour
         fieldCenter = GameFieldManager.instance.fieldCenterPosition;
     }
 
+    void OnDestroy()
+    {
+        EnemyController.EnemyAlertEvent -= OnEnemyAlert;
+    }
+
     void Update()
     {
         if(!alertIsDone)
